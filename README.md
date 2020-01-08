@@ -4,8 +4,8 @@ vim/neovim builtin terminal helper
 
 ## Requirements
 
-- vim 8.1
-- neovim 0.3
+- vim: 8.1
+- neovim: 0.3 and install [neovim-remote](https://github.com/mhinz/neovim-remote) package.
 
 ## Installation
 
