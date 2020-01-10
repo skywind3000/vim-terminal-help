@@ -62,7 +62,7 @@ function! TerminalOpen()
 	endfunc
 	let uid = win_getid()
 	noautocmd windo call s:terminal_view(0)
-	call win_gotoid(uid)
+	noautocmd call win_gotoid(uid)
 	if bid > 0
 		let name = bufname(bid)
 		if name != ''
@@ -91,7 +91,9 @@ function! TerminalOpen()
 		let workdir = (expand('%') == '')? expand('~') : expand('%:p:h')
 		silent execute cd . ' '. fnameescape(workdir)
 		if has('nvim') == 0
+			let kill = get(g:, 'terminal_kill', '')
 			let cmd = pos . ' term ' . (close? '++close' : '++noclose') 
+			let cmd = cmd . ((kill != '')? (' ++kill=' . kill) : '')
 			exec cmd . ' ++norestore ++rows=' . height . ' ' . shell
 		else
 			exec pos . ' ' . height . 'split'
@@ -102,10 +104,14 @@ function! TerminalOpen()
 		silent execute cd . ' '. fnameescape(savedir)
 		let t:__terminal_bid__ = bufnr('')
 		setlocal bufhidden=hide
+		if get(g:, 'terminal_list', 1) == 0
+			setlocal nobuflisted
+		endif
 	endif
-	let uid = win_getid()
+	let x = win_getid()
 	noautocmd windo call s:terminal_view(1)
-	call win_gotoid(uid)
+	noautocmd call win_gotoid(uid)    " take care of previous window
+	noautocmd call win_gotoid(x)
 endfunc
 
 
