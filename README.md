@@ -1,11 +1,26 @@
-# vim-terminal-help
+# Preface
+
 vim/neovim builtin terminal helper
 
+Firstly, this plugin setup a keymap `ALT+=`, allows you press `ALT+=` to open a terminal right below your window. Then initiate the working directory to where the parent directory of current file. Most of time you want to do something for the current file, so open the shell in the current file directory will make life easier. 
+
+When you finished, just press `ALT+=` again to hide the terminal, so you always press `ALT+=` to toggle your terminal window, but if you run `exit` and quit the previous terminal session and hit `ALT+=` again, a new terminal will be created.
+
+In addition, you are able to use `ALT+SHIFT+h/j/k/l` to move around between windows. Most vim users uses `CTRL+h/j/k/l` to switch window, but these keys are very useful in the terminal applications, for example if you use `tnoremap` to override `CTRL+j` or `CTRL+k`, you will not be able to use them in fzf. so `CTRL+h/j/k/l` will not be used for `tnoremap`, `terminal-help` encourage you to use the new `ALT+SHIFT+h/j/k/l` to jump between windows.
+
+Finally, it provides a `drop` command in the built-in terminal to tell outside vim to open a file. When you are working in the built-in terminal and you want to edit a file in the current directory (not vim's `pwd`), how do you do ? especially the `pwd` in the terminal is different of vim's `pwd`. You have to switch to terminal normal mode and use vim `e` command with a long path name.
+
+With `drop` command, it is simple to tell outside vim open a specific file precisely:
+
+```bash
+cd /xxx/some/where
+drop abc.txt
+```
 
 ## Requirements
 
 - vim: 8.1
-- neovim: 0.3 and install [neovim-remote](https://github.com/mhinz/neovim-remote) package.
+- neovim: 0.3 and install [neovim-remote](https://github.com/mhinz/neovim-remote) package if you need drop command.
 
 ## Installation
 
