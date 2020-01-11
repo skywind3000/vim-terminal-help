@@ -1,8 +1,10 @@
 # Preface
 
-vim/neovim builtin terminal helper
+I use vscode for markdown editing and vscode has a `CTRL+backtick` hot key to toggle built-in terminal. I use it a lot and it's very handy. At the meantime both vim/nvim have built-in terminal too, but most of us still prefer working in a tmux split rather than using the built-in terminal.
 
-Firstly, this plugin setup a keymap `ALT+=`, allows you press `ALT+=` to open a terminal right below your window. Then initiate the working directory to where the parent directory of current file. Most of time you want to do something for the current file, so open the shell in the current file directory will make life easier. 
+Therefor, I started to wonder, is there something I can do, to make vim's built-in terminal has a better experience ? As a result, here   this plugin exists.
+
+Firstly, this plugin setup a keymap `ALT+=` to toggle built-in terminal, like vscode's `CTRL+backtick`. When you press `ALT+=` it will open a new terminal below your current window, and initiate the shell working directory to where the parent directory of current file. Most of time you want to do something to the current file, so open the shell in the current file directory will make life easier.
 
 When you finished, just press `ALT+=` again to hide the terminal, so you always press `ALT+=` to toggle your terminal window, but if you run `exit` and quit the previous terminal session and hit `ALT+=` again, a new terminal will be created.
 
