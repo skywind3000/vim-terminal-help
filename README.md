@@ -37,6 +37,7 @@ Plug 'skywind3000/vim-terminal-help'
 - `ALT` + `SHIFT` + `l`: move to the window on the right.
 - `ALT` + `SHIFT` + `j`: move to the window below.
 - `ALT` + `SHIFT` + `k`: move to the window above.
+- `ALT` + `-`: paste register 0 to terminal
 
 Inside the terminal:
 
