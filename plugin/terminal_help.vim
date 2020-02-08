@@ -76,7 +76,7 @@ function! s:find_root(name, markers, strict)
 	let name = fnamemodify((a:name != '')? a:name : bufname(), ':p')
 	let finding = ''
 	" iterate all markers
-	for marker in split(g:projectile#marker, ',')
+	for marker in a:markers
 		if marker != ''
 			" search as a file
 			let x = findfile(marker, name . '/;')
@@ -151,8 +151,8 @@ function! TerminalOpen()
 		let shell = get(g:, 'terminal_shell', '')
 		let close = get(g:, 'terminal_close', 0)
 		let savedir = getcwd()
-		let workdir = (expand('%') == '')? expand('~') : expand('%:p:h')
 		if g:terminal_cwd == 1
+			let workdir = (expand('%') == '')? getcwd() : expand('%:p:h')
 			silent execute cd . ' '. fnameescape(workdir)
 		elseif g:terminal_cwd == 2
 			silent execute cd . ' '. fnameescape(s:project_root())
@@ -162,11 +162,11 @@ function! TerminalOpen()
 			let cmd = pos . ' term ' . (close? '++close' : '++noclose') 
 			let cmd = cmd . ((kill != '')? (' ++kill=' . kill) : '')
 			exec cmd . ' ++norestore ++rows=' . height . ' ' . shell
-			setlocal nonumber signcolumn=no
+			setlocal nonumber norelativenumber signcolumn=no
 		else
 			exec pos . ' ' . height . 'split'
 			exec 'term ' . shell
-			setlocal nonumber signcolumn=no
+			setlocal nonumber norelativenumber signcolumn=no
 			startinsert
 		endif
 		silent execute cd . ' '. fnameescape(savedir)
