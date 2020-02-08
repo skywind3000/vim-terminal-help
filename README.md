@@ -8,7 +8,7 @@ Firstly, this plugin setup a keymap `ALT+=` (can be changed) to toggle terminal 
 
 When you finished, just press `ALT+=` again to hide the terminal, so you always press `ALT+=` to toggle your terminal window, but if you run `exit` and quit the previous terminal session and hit `ALT+=` again, a new terminal will be created.
 
-In addition, you are able to use `ALT+SHIFT+h/j/k/l` to move around between windows. Most vim users uses `CTRL+h/j/k/l` to switch window, but these keys are very useful in the terminal applications, for example if you use `tnoremap` to override `CTRL+j` or `CTRL+k`, you will not be able to use them in fzf. So `CTRL+h/j/k/l` will not be used for `tnoremap`, `terminal-help` encourage you to use the new `ALT+SHIFT+h/j/k/l` to jump between windows.
+In addition, you are able to use `ALT+SHIFT+h/j/k/l` to move around between windows. Most vim users uses `CTRL+h/j/k/l` for window switching, but these keys are very useful in the terminal applications, for example if you use `tnoremap` to override `CTRL+j` or `CTRL+k`, you will not be able to use them in fzf. So `CTRL+h/j/k/l` will not be used for `tnoremap`, `terminal-help` encourage you to use the new `ALT+SHIFT+h/j/k/l` to jump between windows.
 
 Finally, it provides a `drop` command in the internal terminal to tell outside vim to open a file. When you are working in the internal terminal and you want to edit a file in the current directory (not vim's `pwd`), how do you do ? Especially the `pwd` in the terminal is different of vim's `pwd`. You have to switch to terminal normal mode and use vim `e` command with a long path name.
 
@@ -39,7 +39,8 @@ Plug 'skywind3000/vim-terminal-help'
 - `ALT` + `SHIFT` + `l`: move to the window on the right.
 - `ALT` + `SHIFT` + `j`: move to the window below.
 - `ALT` + `SHIFT` + `k`: move to the window above.
-- `ALT` + `-`: paste register 0 to terminal
+- `ALT` + `-`: paste register 0 to terminal.
+- `ALT` + `q`: switch to terminal normal mode.
 
 Inside the terminal:
 
