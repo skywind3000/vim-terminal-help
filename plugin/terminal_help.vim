@@ -327,6 +327,16 @@ if get(g:, 'terminal_default_mapping', 1)
 endif
 
 
+"----------------------------------------------------------------------
+" helper command for dropping from terminal
+"----------------------------------------------------------------------
+function! s:DropFromTerminal(filename)
+	wincmd p
+	execute 'drop ' . a:filename
+endfunc
+
+command! -nargs=1 -complete=file DropFromTerminal call <SID>DropFromTerminal(<q-args>)
+
 " set twt=conpty
 
 
