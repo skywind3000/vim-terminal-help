@@ -39,6 +39,7 @@ Plug 'skywind3000/vim-terminal-help'
 - `ALT` + `SHIFT` + `l`: move to the window on the right.
 - `ALT` + `SHIFT` + `j`: move to the window below.
 - `ALT` + `SHIFT` + `k`: move to the window above.
+- `ALT` + `SHIFT` + `p`: move to the previous window.
 - `ALT` + `-`: paste register 0 to terminal.
 - `ALT` + `q`: switch to terminal normal mode.
 
