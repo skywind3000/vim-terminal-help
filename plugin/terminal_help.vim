@@ -330,6 +330,50 @@ if get(g:, 'terminal_default_mapping', 1)
 	endif
 endif
 
+"----------------------------------------------------------------------
+" drop a file ask user to select a window for dropping if there are
+" multiple modifiable windows
+"----------------------------------------------------------------------
+function! s:SelectiveDrop(filename)
+	let modifiable_wins = []
+	for i in range(1, winnr('$'))
+		if getwinvar(i, '&modifiable')
+			call add(modifiable_wins, i)
+		endif
+	endfor
+	if len(modifiable_wins) >= 2
+		let key = char2nr('A')
+		let saved_statuslines = {}
+		let choices = []
+		for i in modifiable_wins
+			let saved_statuslines[i] = getwinvar(i, '&statusline')
+			let c = nr2char(key)
+			let w = winwidth(i)
+			call setwinvar(i, '&statusline', '%#Search#' . repeat(' ', (w - 1) / 2) . c . repeat(' ', w - 1 - (w - 1) / 2))
+			call add(choices, c)
+			let key += 1
+		endfor
+		redraw
+		echohl ModeMsg | echon 'Choose window (' . join(choices, '/') . '): ' | echohl None
+		let choice_nr = getchar()
+		let choice = index(choices, toupper(nr2char(choice_nr)))
+		for [i, saved_statusline] in items(saved_statuslines)
+			call setwinvar(i, '&statusline', saved_statusline)
+		endfor
+		if choice >= 0
+			execute modifiable_wins[choice] . 'wincmd w'
+			execute 'edit ' . a:filename
+		endif
+		echon
+	elseif len(modifiable_wins) == 1
+		execute modifiable_wins[0] . 'wincmd w'
+		execute 'edit ' . a:filename
+	else
+		execute 'split ' . a:filename
+	endif
+endfunction
+
+command -complete=file -nargs=1 SelectiveDrop call <SID>SelectiveDrop(<q-args>)
 
 " set twt=conpty
 
