@@ -335,8 +335,14 @@ endif
 " multiple modifiable windows
 "----------------------------------------------------------------------
 function! s:SelectiveDrop(filename)
+	let escaped_filename = substitute(a:filename, ' ', '\ ', 'g')
 	let modifiable_wins = []
 	for i in range(1, winnr('$'))
+		if bufname(winbufnr(i)) ==# a:filename
+			execute i . 'wincmd w'
+			return
+		endif
+
 		if getwinvar(i, '&modifiable')
 			call add(modifiable_wins, i)
 		endif
@@ -362,14 +368,15 @@ function! s:SelectiveDrop(filename)
 		endfor
 		if choice >= 0
 			execute modifiable_wins[choice] . 'wincmd w'
-			execute 'edit ' . a:filename
+			execute 'edit ' . escaped_filename
 		endif
+		redraw
 		echon
 	elseif len(modifiable_wins) == 1
 		execute modifiable_wins[0] . 'wincmd w'
-		execute 'edit ' . a:filename
+		execute 'edit ' . escaped_filename
 	else
-		execute 'split ' . a:filename
+		execute 'split ' . escaped_filename
 	endif
 endfunction
 
