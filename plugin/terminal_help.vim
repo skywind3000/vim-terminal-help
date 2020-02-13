@@ -331,14 +331,13 @@ if get(g:, 'terminal_default_mapping', 1)
 endif
 
 "----------------------------------------------------------------------
-" drop a file ask user to select a window for dropping if there are
-" multiple modifiable windows
+" drop a file and ask user to select a window for dropping if there
+" are multiple modifiable windows
 "----------------------------------------------------------------------
 function! s:SelectiveDrop(filename)
-	let escaped_filename = substitute(a:filename, ' ', '\ ', 'g')
 	let modifiable_wins = []
 	for i in range(1, winnr('$'))
-		if bufname(winbufnr(i)) ==# a:filename
+		if expand('#' . winbufnr(i) . ':p') ==# fnamemodify(a:filename, ':p')
 			execute i . 'wincmd w'
 			return
 		endif
@@ -347,6 +346,7 @@ function! s:SelectiveDrop(filename)
 			call add(modifiable_wins, i)
 		endif
 	endfor
+	let escaped_filename = fnameescape(a:filename)
 	if len(modifiable_wins) >= 2
 		let key = char2nr('A')
 		let saved_statuslines = {}
