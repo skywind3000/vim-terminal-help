@@ -380,7 +380,7 @@ function! s:SelectiveDrop(filename)
 	endif
 endfunction
 
-command -complete=file -nargs=1 SelectiveDrop call <SID>SelectiveDrop(<q-args>)
+command! -complete=file -nargs=1 SelectiveDrop call <SID>SelectiveDrop(<q-args>)
 
 " set twt=conpty
 
