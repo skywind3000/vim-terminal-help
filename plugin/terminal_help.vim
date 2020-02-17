@@ -175,7 +175,7 @@ function! TerminalOpen()
 		if get(g:, 'terminal_list', 1) == 0
 			setlocal nobuflisted
 		endif
-		if get(g:, 'terminal_fixheight', 0) == 0
+		if get(g:, 'terminal_fixheight', 0)
 			setlocal winfixheight
 		endif
 	endif
