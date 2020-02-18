@@ -175,14 +175,14 @@ function! TerminalOpen()
 		if get(g:, 'terminal_list', 1) == 0
 			setlocal nobuflisted
 		endif
-		if get(g:, 'terminal_fixheight', 0)
-			setlocal winfixheight
-		endif
 	endif
 	let x = win_getid()
 	noautocmd windo call s:terminal_view(1)
 	noautocmd call win_gotoid(uid)    " take care of previous window
 	noautocmd call win_gotoid(x)
+	if get(g:, 'terminal_fixheight', 0)
+		setlocal winfixheight
+	endif
 endfunc
 
 
