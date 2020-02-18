@@ -62,6 +62,7 @@ tell vim to open `abc.txt`
 - `g:terminal_edit`: command to open the file in vim, default to `tab drop`.
 - `g:terminal_kill`: set to `term` to kill term session when exiting vim.
 - `g:terminal_list`: set to 0 to hide terminal buffer in the buffer list.
+- `g:terminal_fixheight`: set to 1 to set `winfixheight` for the terminal window.
 
 
 ## Remember
