@@ -218,6 +218,28 @@ function! TerminalClose()
 	call win_gotoid(sid)
 endfunc
 
+"----------------------------------------------------------------------
+" exit terminal
+"----------------------------------------------------------------------
+
+function! TerminalQuit()
+	let bid = get(t:, '__terminal_bid__', -1)
+	if bid < 0
+		return
+	endif
+	let name = bufname(bid)
+	if name == ''
+		return
+	endif
+    exec "bw! ". name
+endfunc
+
+if exists('g:terminal_close_when_exit')
+    if g:terminal_close_when_exit == 1
+        au TermClose * call TerminalQuit()
+    endif
+endif
+
 
 "----------------------------------------------------------------------
 " toggle open/close
