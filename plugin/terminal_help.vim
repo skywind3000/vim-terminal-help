@@ -235,8 +235,10 @@ function! TerminalQuit()
 endfunc
 
 if exists('g:terminal_close_when_exit')
-    if g:terminal_close_when_exit == 1
-        au TermClose * call TerminalQuit()
+    if has('nvim')
+        if g:terminal_close_when_exit == 1
+            au TermClose * call TerminalQuit()
+        endif
     endif
 endif
 
