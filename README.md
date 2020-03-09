@@ -70,4 +70,32 @@ tell vim to open `abc.txt`
 
 The internal terminal in both vim/neovim has `NORMAL` and `INSERT` mode. When you are in `INSERT` mode, you can enter shell commands. And if you want to scroll terminal screen or copy / paste texts to a normal vim buffer, you need to switch to `NORMAL` mode by `<c-\><c-n>` (like tmux's `<c-b>` + left square bracket).
 
+This plugin has defined a `<m-q>` map for `<c-\><c-n>`, which makes switching to terminal normal mode a little easier.
+
 If you want to re-enter `INSERT` mode, just press `i` or `a`, and you can input shell commands again.
+
+## Integration
+
+This plugin defined a runner `thelp` for [asyncrun.vim](https://github.com/skywind3000/asyncrun.vim), which enables you use terminal-help to execute asyncrun commands:
+
+```VimL
+:AsyncRun -mode=term -pos=thelp echo 123
+```
+
+And it is also useful when you are using [asynctasks.vim](https://github.com/skywind3000/asynctasks.vim):
+
+```ini
+[test-task]
+command=echo 123
+output=terminal
+pos=thelp
+```
+
+You can either set `g:asynctasks_term_pos` to `thelp` or use `pos` field in task option directly. After this:
+
+```VimL
+:AsyncTask test-task
+```
+
+Can run the task in the terminal-help's window.
+
