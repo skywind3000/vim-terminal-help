@@ -3,7 +3,7 @@
 " terminal_help.vim -
 "
 " Created by skywind on 2020/01/01
-" Last Modified: 2020/03/09 14:33
+" Last Modified: 2020/03/12 16:56
 "
 "======================================================================
 
@@ -133,11 +133,11 @@ function! TerminalOpen(...)
 					if has('nvim')
 						startinsert
 					else
-						exec "normal i"
+						exec "normal! i"
 					endif
 				endif
 			else
-				exec "normal ". wid . "\<c-w>w"
+				exec "normal! ". wid . "\<c-w>w"
 			endif
 			let succeed = 1
 		endif
@@ -215,7 +215,7 @@ function! TerminalClose()
 	call win_gotoid(sid)
 	if wid != winnr()
 		let uid = win_getid()
-		exec "normal ". wid . "\<c-w>w"
+		exec "normal! ". wid . "\<c-w>w"
 		close
 		call win_gotoid(uid)
 	else
@@ -341,7 +341,7 @@ function! TerminalSend(text)
 			endif
 			startinsert
 			stopinsert
-			exec 'normal G'
+			exec 'normal! G'
 		endif
 	endif
 	call win_gotoid(x)
