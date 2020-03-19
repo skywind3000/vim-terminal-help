@@ -3,7 +3,7 @@
 " terminal_help.vim -
 "
 " Created by skywind on 2020/01/01
-" Last Modified: 2020/03/12 16:56
+" Last Modified: 2020/03/19 18:33
 "
 "======================================================================
 
@@ -194,6 +194,13 @@ function! TerminalOpen(...)
 		setlocal bufhidden=hide
 		if get(g:, 'terminal_list', 1) == 0
 			setlocal nobuflisted
+		endif
+		if get(g:, 'terminal_auto_insert', 0) != 0
+			if has('nvim') == 0
+				autocmd WinEnter <buffer> exec "normal! i"
+			else
+				autocmd WinEnter <buffer> startinsert
+			endif
 		endif
 	endif
 	let x = win_getid()
@@ -419,12 +426,16 @@ if get(g:, 'terminal_default_mapping', 1)
 	noremap <m-L> <c-w>l
 	noremap <m-J> <c-w>j
 	noremap <m-K> <c-w>k
-	noremap <m-P> <c-w>p
+	if mapcheck('<m-P>', 'n') == ''
+		noremap <m-P> <c-w>p
+	endif
 	inoremap <m-H> <esc><c-w>h
 	inoremap <m-L> <esc><c-w>l
 	inoremap <m-J> <esc><c-w>j
 	inoremap <m-K> <esc><c-w>k
-	inoremap <m-P> <esc><c-w>p
+	if mapcheck('<m-P>', 'n') == ''
+		inoremap <m-P> <esc><c-w>p
+	endif
 
 	if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
 		set termwinkey=<c-_>
@@ -456,6 +467,7 @@ if get(g:, 'terminal_default_mapping', 1)
 		exec s:cmd . '<c-\><c-n>:call TerminalToggle()<cr>'
 	endif
 endif
+
 
 "----------------------------------------------------------------------
 " drop a file and ask user to select a window for dropping if there
@@ -522,5 +534,6 @@ endfunc
 
 let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
 let g:asyncrun_runner.thelp = function('s:runner_proc')
+
 
 
