@@ -51,6 +51,16 @@ drop abc.txt
 
 tell vim to open `abc.txt`
 
+## Command
+
+This plugin provide a single command `H`:
+
+```VimL
+:H {shell command}
+```
+
+You can type ":H uname -a" in vim's command line, it will send to the terminal directly without actually enter the terminal.
+
 
 ## Settings
 
