@@ -74,6 +74,7 @@ You can type ":H uname -a" in vim's command line, it will send to the terminal d
 - `g:terminal_list`: set to 0 to hide terminal buffer in the buffer list.
 - `g:terminal_fixheight`: set to 1 to set `winfixheight` for the terminal window.
 - `g:terminal_close`: set to 1 to close window if process finished.
+- `g:terminal_skip_key_init`: set to 1 if you don't use the 'ALT' key and don't want this plugin to adjust options that recognises it.
 
 
 ## Remember

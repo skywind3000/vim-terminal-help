@@ -395,7 +395,9 @@ endfunc
 "----------------------------------------------------------------------
 " enable alt key in terminal vim
 "----------------------------------------------------------------------
-if has('nvim') == 0 && has('gui_running') == 0
+if has('nvim') == 0
+			\ && has('gui_running') == 0
+			\ && get(g:, 'terminal_skip_key_init', 0) == 0
 	set ttimeout
 	if $TMUX != ''
 		set ttimeoutlen=35
@@ -403,9 +405,7 @@ if has('nvim') == 0 && has('gui_running') == 0
 		set ttimeoutlen=85
 	endif
 	function! s:meta_code(key)
-		if get(g:, 'terminal_skip_key_init', 0) == 0
-			exec "set <M-".a:key.">=\e".a:key
-		endif
+		exec "set <M-".a:key.">=\e".a:key
 	endfunc
 	for i in range(10)
 		call s:meta_code(nr2char(char2nr('0') + i))
@@ -423,9 +423,7 @@ if has('nvim') == 0 && has('gui_running') == 0
 		call s:meta_code(c)
 	endfor
 	function! s:key_escape(name, code)
-		if get(g:, 'terminal_skip_key_init', 0) == 0
-			exec "set ".a:name."=\e".a:code
-		endif
+		exec "set ".a:name."=\e".a:code
 	endfunc
 	call s:key_escape('<F1>', 'OP')
 	call s:key_escape('<F2>', 'OQ')
