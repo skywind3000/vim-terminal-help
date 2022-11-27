@@ -173,9 +173,9 @@ function! TerminalOpen(...)
 		if &bt == ''
 			if g:terminal_cwd == 1
 				let workdir = (expand('%') == '')? getcwd() : expand('%:p:h')
-				silent execute cd . ' '. fnameescape(workdir)
+				silent noautocmd execute cd . ' '. fnameescape(workdir)
 			elseif g:terminal_cwd == 2
-				silent execute cd . ' '. fnameescape(s:project_root())
+				silent noautocmd execute cd . ' '. fnameescape(s:project_root())
 			endif
 		endif
 		if has('nvim') == 0
@@ -197,7 +197,7 @@ function! TerminalOpen(...)
 			let b:__terminal_jid__ = jid
 			startinsert
 		endif
-		silent execute cd . ' '. fnameescape(savedir)
+		silent noautocmd execute cd . ' '. fnameescape(savedir)
 		let t:__terminal_bid__ = bufnr('')
 		setlocal bufhidden=hide
 		if get(g:, 'terminal_list', 1) == 0
