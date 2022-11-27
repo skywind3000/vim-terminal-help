@@ -169,18 +169,19 @@ function! TerminalOpen(...)
 			endfor
 			let uid = win_getid()
 		endif
-		let savedir = getcwd()
 		if &bt == ''
 			if g:terminal_cwd == 1
 				let workdir = (expand('%') == '')? getcwd() : expand('%:p:h')
-				silent execute cd . ' '. fnameescape(workdir)
 			elseif g:terminal_cwd == 2
-				silent execute cd . ' '. fnameescape(s:project_root())
+				let workdir = s:project_root()
+			else
+				let workdir = getcwd()
 			endif
 		endif
 		if has('nvim') == 0
 			exec pos . ' ' . height . 'split'
 			let opts = {'curwin':1, 'norestore':1, 'term_finish':'open'}
+			let opts.cwd = fnameescape(workdir)
 			let opts.term_kill = get(g:, 'terminal_kill', 'term')
 			let opts.exit_cb = function('s:terminal_exit')
 			let bid = term_start(command, opts)
@@ -191,13 +192,13 @@ function! TerminalOpen(...)
 			exec pos . ' ' . height . 'split'
 			exec 'enew'
 			let opts = {}
+			let opts.cwd = fnameescape(workdir)
 			let opts.on_exit = function('s:terminal_exit')
 			let jid = termopen(command, opts)
 			setlocal nonumber norelativenumber signcolumn=no
 			let b:__terminal_jid__ = jid
 			startinsert
 		endif
-		silent execute cd . ' '. fnameescape(savedir)
 		let t:__terminal_bid__ = bufnr('')
 		setlocal bufhidden=hide
 		if get(g:, 'terminal_list', 1) == 0
