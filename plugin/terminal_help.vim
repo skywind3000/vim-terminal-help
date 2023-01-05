@@ -110,6 +110,14 @@ function! s:project_root()
 	return s:find_root(name, g:terminal_rootmarkers, 0)
 endfunc
 
+function! s:terminal_view(mode)
+      if a:mode == 0
+            let w:__terminal_view__ = winsaveview()
+      elseif exists('w:__terminal_view__')
+            call winrestview(w:__terminal_view__)
+            unlet w:__terminal_view__
+      endif
+endfunc
 
 "----------------------------------------------------------------------
 " open a new/previous terminal
@@ -119,14 +127,6 @@ function! TerminalOpen(...)
 	let pos = get(g:, 'terminal_pos', 'rightbelow')
 	let height = get(g:, 'terminal_height', 10)
 	let succeed = 0
-	function! s:terminal_view(mode)
-		if a:mode == 0
-			let w:__terminal_view__ = winsaveview()
-		elseif exists('w:__terminal_view__')
-			call winrestview(w:__terminal_view__)
-			unlet w:__terminal_view__
-		endif
-	endfunc
 	let uid = win_getid()
 	keepalt noautocmd windo call s:terminal_view(0)
 	keepalt noautocmd call win_gotoid(uid)
