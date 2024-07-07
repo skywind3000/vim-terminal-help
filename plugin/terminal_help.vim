@@ -37,6 +37,9 @@ if !exists('g:terminal_rootmarkers')
 	let g:terminal_rootmarkers = ['.git', '.svn', '.project', '.root', '.hg']
 endif
 
+if !exists('g:terminal_newline')
+	let g:terminal_newline = "\r"
+endif
 
 "----------------------------------------------------------------------
 " Initialize
@@ -378,7 +381,7 @@ endfunc
 "----------------------------------------------------------------------
 " command H to send
 "----------------------------------------------------------------------
-command! -nargs=* H call TerminalSend(<q-args> . "\r")
+command! -nargs=* H call TerminalSend(<q-args> . g:terminal_newline)
 
 
 "----------------------------------------------------------------------
@@ -540,8 +543,8 @@ function! s:runner_proc(opts)
 	let cwd = getcwd()
 	let cd = (has('win32') || has('win64') || has('win16'))? 'cd /D' : 'cd'
 	let cd = get(g:, 'terminal_cd', cd)
-	call TerminalSend(cd . ' ' . shellescape(cwd) . "\r")
-	call TerminalSend(a:opts.cmd . "\r")
+	call TerminalSend(cd . ' ' . shellescape(cwd) . g:terminal_newline)
+	call TerminalSend(a:opts.cmd . g:terminal_newline)
 endfunc
 
 let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})
