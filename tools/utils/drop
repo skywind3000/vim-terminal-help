@@ -38,7 +38,7 @@ absolute_path() {
 
 name="$(absolute_path """$1""")"
 
-if [ -z "$NVIM_LISTEN_ADDRESS" ]; then
+if [ -z "$NVIM" ]; then
 	printf '\033]51;["call", "Tapi_TerminalEdit", ["%s"]]\007' "$name"
 else
 	if [ -x "$(which nvr 2> /dev/null)" ]; then
