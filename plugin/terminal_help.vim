@@ -434,6 +434,12 @@ if has('nvim') == 0 && has('gui_running') == 0
 	call s:key_escape('<F2>', 'OQ')
 	call s:key_escape('<F3>', 'OR')
 	call s:key_escape('<F4>', 'OS')
+    if has('unix')
+        call s:key_escape('<Up>', 'OA')
+        call s:key_escape('<Down>', 'OB')
+        call s:key_escape('<Right>', 'OC')
+        call s:key_escape('<Left>', 'OD')
+    endif
 endif
 
 
